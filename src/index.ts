@@ -142,17 +142,25 @@ const typeDefs = `#graphql
     name: String
   }
 
+  type CommonPlayerInfo {
+    id: String,
+    name: String,
+    teamId: String,
+    teamName: String
+  }
+
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
   # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
     players: [Player]
     teams: [Team]
+    commonPlayerInfo(playerID: String!): CommonPlayerInfo
   }
 `;
 
-const apiCall = async (endpoint: string) => {
-  return axios.get(`https://stats.nba.com/stats/${endpoint}`, {
+const apiCall = async (endpoint: string, params?: string) => {
+  return axios.get(`https://stats.nba.com/stats/${endpoint}?LeagueID=00${params && "&" + params}`, {
     headers: {
       accept: "*/*",
       host: "stats.nba.com",
@@ -168,7 +176,7 @@ const resolvers = {
   Query: {
     players: async (_) => {
       const players = [];
-      const resp = await apiCall("commonallplayers?LeagueID=00");
+      const resp = await apiCall("commonallplayers");
       const resultSets = resp.data.resultSets[0];
       for (let i = 0; i < resultSets.rowSet.length; i++) {
         if (Number(resultSets.rowSet[i][5]) === 2022) {
@@ -183,6 +191,19 @@ const resolvers = {
     },
     teams: async (_) => {
       return teams;
+    },
+    commonPlayerInfo: async (parent, args, contextValue, info) => {
+      const resp = await apiCall("commonplayerinfo", `PlayerID=${args.playerID}`);
+      const rowSet = resp.data.resultSets[0].rowSet[0];
+
+      const commonPlayerInfo = {
+        id: rowSet[0],
+        name: rowSet[3],
+        teamId: rowSet[18],
+        teamName: rowSet[19]
+      };
+
+      return commonPlayerInfo;
     },
   },
 };
