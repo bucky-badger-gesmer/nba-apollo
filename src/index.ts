@@ -14,16 +14,22 @@ const typeDefs = `#graphql
     name: String
   }
 
+  type Team {
+    id: Int
+    name: String
+  }
+
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
   # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
     players: [Player]
+    teams: [Team]
   }
 `;
 
-const apiCall = async () => {
-  return axios.get("https://stats.nba.com/stats/commonallplayers?LeagueID=00", {
+const apiCall = async (endpoint: string) => {
+  return axios.get(`https://stats.nba.com/stats/${endpoint}`, {
     headers: {
       accept: "*/*",
       host: "stats.nba.com",
@@ -39,7 +45,7 @@ const resolvers = {
   Query: {
     players: async (_) => {
       const players = [];
-      const resp = await apiCall();
+      const resp = await apiCall("commonallplayers?LeagueID=00");
       const resultSets = resp.data.resultSets[0];
       for (let i = 0; i < resultSets.rowSet.length; i++) {
         if (Number(resultSets.rowSet[i][5]) === 2022) {
@@ -67,7 +73,7 @@ const server = new ApolloServer({
 //  2. installs your ApolloServer instance as middleware
 //  3. prepares your app to handle incoming requests
 const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 },
+  listen: { port: Number(process.env.PORT) || 4000 },
 });
 
 console.log(`🚀  Server ready at: ${url}`);
