@@ -221,7 +221,7 @@ const typeDefs = `#graphql
   # clients can execute, along with the return type for each. In this
   # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
-    players: [Player]
+    players(includeHistoric: Boolean): [Player]
     teams: [Team]
     commonPlayerInfo(playerID: String!): CommonPlayerInfo
     teamInfoCommon(teamID: String!): TeamInfoCommon
@@ -243,13 +243,13 @@ const apiCall = async (endpoint: string, params?: string) => {
 // This resolver retrieves books from the "books" array above.
 const resolvers = {
   Query: {
-    players: async (_) => {
+    players: async (parent, args, contextValue, info) => {
       const players = [];
       const resp = await apiCall("commonallplayers");
       const resultSets = resp.data.resultSets[0];
 
-      resultSets.rowSet.forEach(e => {
-        players.push({
+      resultSets.rowSet.forEach((e) => {
+        const player = {
           id: e[0],
           displayLastCommaFirst: e[1],
           displayFirstLast: e[2],
@@ -265,8 +265,16 @@ const resolvers = {
           teamSlug: e[12],
           gamesPlayedFlag: e[13],
           otherLeagueExperience: e[14],
-        });
+        };
+
+        players.push(player);
       });
+
+      if (!args.includeHistoric) {
+        return players.filter(player => {
+          return player.toYear === "2022"; // TODO: change this to an ENV var
+        })
+      }
 
       return players;
     },
@@ -274,7 +282,10 @@ const resolvers = {
       return teams;
     },
     commonPlayerInfo: async (parent, args, contextValue, info) => {
-      const resp = await apiCall("commonplayerinfo", `PlayerID=${args.playerID}`);
+      const resp = await apiCall(
+        "commonplayerinfo",
+        `PlayerID=${args.playerID}`
+      );
       const commonPlayerInfo = resp.data.resultSets[0].rowSet[0];
       const playerHeadlineStats = resp.data.resultSets[1].rowSet[0];
       const availableSeasons = resp.data.resultSets[2].rowSet;
@@ -332,24 +343,18 @@ const resolvers = {
           seasons: seasons,
         },
       };
-
-
-
-      return {
-
-      };
     },
     teamInfoCommon: async (parent, args, contextValue, info) => {
       const resp = await apiCall("teaminfoCommon", `TeamID=${args.teamID}`);
-      const rowSet = resp.data.resultSets[0].rowSet[0]
+      const rowSet = resp.data.resultSets[0].rowSet[0];
 
       const teamInfoCommon = {
         id: rowSet[0],
         city: rowSet[2],
-        name: rowSet[3]
+        name: rowSet[3],
       };
       return teamInfoCommon;
-    }
+    },
   },
 };
 
