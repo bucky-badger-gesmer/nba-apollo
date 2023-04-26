@@ -253,12 +253,10 @@ const resolvers = {
       const commonPlayerInfo = resp.data.resultSets[0].rowSet[0];
       const playerHeadlineStats = resp.data.resultSets[1].rowSet[0];
       const availableSeasons = resp.data.resultSets[2].rowSet;
-      const foo = [];
-      for (let i = 0; i < availableSeasons.length; i++) {
-        foo.push(availableSeasons[i][0]);
-        // console.log('poop', availableSeasons[i]);
-      }
-      console.log('foo', foo)
+      const seasons = [];
+      availableSeasons.forEach((availableSeason) => {
+        seasons.push(availableSeason[0]);
+      });
 
       return {
         commonPlayerInfo: {
@@ -306,7 +304,7 @@ const resolvers = {
           pie: playerHeadlineStats[6],
         },
         availableSeasons: {
-          seasons: foo
+          seasons: seasons,
         },
       };
 
