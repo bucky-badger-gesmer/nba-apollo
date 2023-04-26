@@ -149,6 +149,12 @@ const typeDefs = `#graphql
     teamName: String
   }
 
+  type TeamInfoCommon {
+    id: String,
+    city: String
+    name: String
+  }
+
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
   # case, the "books" query returns an array of zero or more Books (defined above).
@@ -156,6 +162,7 @@ const typeDefs = `#graphql
     players: [Player]
     teams: [Team]
     commonPlayerInfo(playerID: String!): CommonPlayerInfo
+    teamInfoCommon(teamID: String!): TeamInfoCommon
   }
 `;
 
@@ -205,6 +212,17 @@ const resolvers = {
 
       return commonPlayerInfo;
     },
+    teamInfoCommon: async (parent, args, contextValue, info) => {
+      const resp = await apiCall("teaminfoCommon", `TeamID=${args.teamID}`);
+      const rowSet = resp.data.resultSets[0].rowSet[0]
+
+      const teamInfoCommon = {
+        id: rowSet[0],
+        city: rowSet[2],
+        name: rowSet[3]
+      };
+      return teamInfoCommon;
+    }
   },
 };
 
