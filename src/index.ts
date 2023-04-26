@@ -133,20 +133,69 @@ const typeDefs = `#graphql
 
   # This "Book" type defines the queryable fields for every book in our data source.
   type Player {
-    id: Int
+    id: String
     name: String
   }
 
   type Team {
-    id: Int
+    id: String
     name: String
   }
 
-  type CommonPlayerInfo {
+  type PlayerInfo {
     id: String,
-    name: String,
+    firstName: String,
+    lastName: String,
+    displayFirstName: String,
+    displayLastCommaFirst: String,
+    displayFILast: String,
+    playerSlug: String,
+    birthdate: String,
+    school: String,
+    country: String,
+    lastAffiliation: String,
+    height: String,
+    weight: String,
+    seasonExp: String,
+    jersey: String,
+    position: String,
+    rosterStatus: String,
+    gamesPlayedCurrentSeasonFlag: String,
     teamId: String,
-    teamName: String
+    teamName: String,
+    teamAbbreviation: String,
+    teamCode: String,
+    teamCity: String,
+    playerCode: String,
+    fromYear: String,
+    toYear: String,
+    dLeagueFlag: String,
+    nbaFlag: String,
+    gamesPlayedFlag: String,
+    draftYear: String,
+    draftRound: String,
+    draftNumber: String,
+    greatest75Flag: String,
+  }
+
+  type PlayerHeadlineStats {
+    id: String,
+    playerName: String,
+    timeFrame: String,
+    points: String,
+    assists: String,
+    rebounds: String,
+    pie: String,
+  }
+
+  type AvailableSeasons {
+    seasons: [String]
+  }
+
+  type CommonPlayerInfo {
+    commonPlayerInfo: PlayerInfo,
+    playerHeadlineStats: PlayerHeadlineStats,
+    availableSeasons: AvailableSeasons,
   }
 
   type TeamInfoCommon {
@@ -201,16 +250,71 @@ const resolvers = {
     },
     commonPlayerInfo: async (parent, args, contextValue, info) => {
       const resp = await apiCall("commonplayerinfo", `PlayerID=${args.playerID}`);
-      const rowSet = resp.data.resultSets[0].rowSet[0];
+      const commonPlayerInfo = resp.data.resultSets[0].rowSet[0];
+      const playerHeadlineStats = resp.data.resultSets[1].rowSet[0];
+      const availableSeasons = resp.data.resultSets[2].rowSet;
+      const foo = [];
+      for (let i = 0; i < availableSeasons.length; i++) {
+        foo.push(availableSeasons[i][0]);
+        // console.log('poop', availableSeasons[i]);
+      }
+      console.log('foo', foo)
 
-      const commonPlayerInfo = {
-        id: rowSet[0],
-        name: rowSet[3],
-        teamId: rowSet[18],
-        teamName: rowSet[19]
+      return {
+        commonPlayerInfo: {
+          id: commonPlayerInfo[0],
+          firstName: commonPlayerInfo[1],
+          lastName: commonPlayerInfo[2],
+          displayFirstName: commonPlayerInfo[3],
+          displayLastCommaFirst: commonPlayerInfo[4],
+          displayFILast: commonPlayerInfo[5],
+          playerSlug: commonPlayerInfo[6],
+          birthdate: commonPlayerInfo[7],
+          school: commonPlayerInfo[8],
+          country: commonPlayerInfo[9],
+          lastAffiliation: commonPlayerInfo[10],
+          height: commonPlayerInfo[11],
+          weight: commonPlayerInfo[12],
+          seasonExp: commonPlayerInfo[13],
+          jersey: commonPlayerInfo[14],
+          position: commonPlayerInfo[15],
+          rosterStatus: commonPlayerInfo[16],
+          gamesPlayedCurrentSeasonFlag: commonPlayerInfo[17],
+          teamId: commonPlayerInfo[18],
+          teamName: commonPlayerInfo[19],
+          teamAbbreviation: commonPlayerInfo[20],
+          teamCode: commonPlayerInfo[21],
+          teamCity: commonPlayerInfo[22],
+          playerCode: commonPlayerInfo[23],
+          fromYear: commonPlayerInfo[24],
+          toYear: commonPlayerInfo[25],
+          dLeagueFlag: commonPlayerInfo[26],
+          nbaFlag: commonPlayerInfo[27],
+          gamesPlayedFlag: commonPlayerInfo[28],
+          draftYear: commonPlayerInfo[29],
+          draftRound: commonPlayerInfo[30],
+          draftNumber: commonPlayerInfo[31],
+          greatest75Flag: commonPlayerInfo[32],
+        },
+        playerHeadlineStats: {
+          id: playerHeadlineStats[0],
+          playerName: playerHeadlineStats[1],
+          timeFrame: playerHeadlineStats[2],
+          points: playerHeadlineStats[3],
+          assists: playerHeadlineStats[4],
+          rebounds: playerHeadlineStats[5],
+          pie: playerHeadlineStats[6],
+        },
+        availableSeasons: {
+          seasons: foo
+        },
       };
 
-      return commonPlayerInfo;
+
+
+      return {
+
+      };
     },
     teamInfoCommon: async (parent, args, contextValue, info) => {
       const resp = await apiCall("teaminfoCommon", `TeamID=${args.teamID}`);
