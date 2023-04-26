@@ -133,8 +133,21 @@ const typeDefs = `#graphql
 
   # This "Book" type defines the queryable fields for every book in our data source.
   type Player {
-    id: String
-    name: String
+    id: String,
+    displayLastCommaFirst: String,
+    displayFirstLast: String,
+    rosterStatus: String,
+    fromYear: String,
+    toYear: String,
+    playerCode: String,
+    teamId: String,
+    teamCity: String,
+    teamName: String,
+    teamAbbreviation: String,
+    teamCode: String,
+    teamSlug: String,
+    gamesPlayedFlag: String,
+    otherLeagueExperience: String,
   }
 
   type Team {
@@ -234,14 +247,26 @@ const resolvers = {
       const players = [];
       const resp = await apiCall("commonallplayers");
       const resultSets = resp.data.resultSets[0];
-      for (let i = 0; i < resultSets.rowSet.length; i++) {
-        if (Number(resultSets.rowSet[i][5]) === 2022) {
-          players.push({
-            id: resultSets.rowSet[i][0],
-            name: resultSets.rowSet[i][2],
-          });
-        }
-      }
+
+      resultSets.rowSet.forEach(e => {
+        players.push({
+          id: e[0],
+          displayLastCommaFirst: e[1],
+          displayFirstLast: e[2],
+          rosterStatus: e[3],
+          fromYear: e[4],
+          toYear: e[5],
+          playerCode: e[6],
+          teamId: e[7],
+          teamCity: e[8],
+          teamName: e[9],
+          teamAbbreviation: e[10],
+          teamCode: e[11],
+          teamSlug: e[12],
+          gamesPlayedFlag: e[13],
+          otherLeagueExperience: e[14],
+        });
+      });
 
       return players;
     },
