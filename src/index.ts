@@ -160,7 +160,7 @@ const typeDefs = `#graphql
 `;
 
 const apiCall = async (endpoint: string, params?: string) => {
-  return axios.get(`https://stats.nba.com/stats/${endpoint}?LeagueID=00${params && "&" + params}`, {
+  return axios.get(`https://stats.nba.com/stats/${endpoint}?LeagueID=00&${params}`, {
     headers: {
       accept: "*/*",
       host: "stats.nba.com",
