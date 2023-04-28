@@ -1,0 +1,36 @@
+openapi: 3.0.1
+info:
+  title: NBA Stats
+  description: Official NBA Stats API
+  version: 1.0.0
+externalDocs:
+  description: github
+  url: https://github.com/bucky-badger-gesmer/nba-apollo
+servers:
+  - url: http://stats.nba.com
+accept: "*/*"
+host: stats.nba.com
+referer: http://stats.nba.com
+origin: http://stats.nba.com
+paths:
+  /commonallplayers:
+    get:
+      tags:
+        - player-controller
+      operationId: getCommonAllPlayers
+      parameters:
+        - name: LeagueID
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: Season
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: IsOnlyCurrentSeason
+          in: query
+          required: false
+          schema:
+            type: string
