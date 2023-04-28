@@ -1,9 +1,14 @@
-// import teams from "../../data/teams";
+import teams from "../../data/teams.json";
+import { Team } from "../../generated/graphql";
 
-const queryResolvers = {};
+const queryResolvers = {
+  team: async (_parent, args, { user }, _info) => {
+    return {} as Team;
+  },
+};
 
 const teamResolvers = {
-  // allTeams: teams,
+  commonAllTeams: () => teams,
 };
 
 export const resolvers = {
