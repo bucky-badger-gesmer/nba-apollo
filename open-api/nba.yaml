@@ -17,7 +17,7 @@ paths:
     get:
       tags:
         - player-controller
-      operationId: getCommonAllPlayers
+      operationId: commonAllPlayers
       parameters:
         - name: LeagueID
           in: query
