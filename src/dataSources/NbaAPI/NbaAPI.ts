@@ -26,14 +26,12 @@ export class NbaAPI extends NbaDataSource {
   commonAllPlayers = async () => {
     try {
       console.log("trying...");
-      const resp = await this.Nba.playerController.commonAllPlayers({
+      return await this.Nba.playerController.commonAllPlayers({
         leagueId: "00",
       });
-      console.log("resp", resp);
-      return resp;
     } catch (error) {
       console.log("error", error);
-      // throw new Error(error);
+      throw new Error(error);
     }
   };
 }
