@@ -27,6 +27,5 @@ export const commonAllPlayers = async (parent, args, contextValue, info) => {
     players.push(player);
   });
 
-  console.log("returning players...", players);
   return players;
 };
