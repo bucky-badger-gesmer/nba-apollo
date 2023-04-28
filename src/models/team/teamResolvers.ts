@@ -1,4 +1,4 @@
-import teams from "../../data/teams";
+// import teams from "../../data/teams";
 
 const queryResolvers = {};
 
