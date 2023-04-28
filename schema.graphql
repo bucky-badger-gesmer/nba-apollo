@@ -1,0 +1,45 @@
+type Query {
+  _: String
+  player: Player
+  team: Team
+}
+
+type Player {
+  commonAllPlayers: [CommonPlayer]
+}
+
+"""Available fields returned per player when commonAllPlayers is called"""
+type CommonPlayer {
+  playerId: String
+  displayLastCommaFirst: String
+  displayFirstLast: String
+  rosterStatus: String
+  fromYear: String
+  toYear: String
+  playerCode: String
+  playerSlug: String
+  teamId: String
+  teamCity: String
+  teamName: String
+  teamAbbreviation: String
+  teamCode: String
+  teamSlug: String
+  gamesPlayedFlag: String
+  otherLeagueExperienceCh: String
+}
+
+type Team {
+  commonAllTeams: [CommonTeam]
+}
+
+type CommonTeam {
+  teamId: String
+  abbreviation: String
+  teamName: String
+  simpleName: String
+  location: String
+}
+
+schema {
+  query: Query
+}
