@@ -7,7 +7,7 @@ export const commonAllPlayers = async (parent, args, contextValue, info) => {
 
   resultSets.rowSet.forEach((e) => {
     const player = {
-      id: e[0],
+      playerId: e[0],
       displayLastCommaFirst: e[1],
       displayFirstLast: e[2],
       rosterStatus: e[3],
@@ -27,5 +27,6 @@ export const commonAllPlayers = async (parent, args, contextValue, info) => {
     players.push(player);
   });
 
+  console.log("returning players...", players);
   return players;
 };

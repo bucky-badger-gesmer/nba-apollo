@@ -1,24 +1,17 @@
-// import {
-//   CommonPlayer,
-//   Player,
-//   PlayerResolvers,
-//   QueryResolvers,
-// } from "../../generated/graphql";
-import { apiCall } from "../helpers";
+import { Player } from "../../generated/graphql";
 import { commonAllPlayers } from "./fieldResolvers";
 
-const playerResolvers = {
-  player: async () => {
-    return {
-      commonAllPlayers: [
-        {
-          playerId: "123",
-        },
-      ],
-    };
+const queryResolvers = {
+  player: async (_parent, args, { user }, _info) => {
+    return {} as Player;
   },
 };
 
+const playerResolvers = {
+  commonAllPlayers,
+};
+
 export const resolvers = {
-  // Player: playerResolvers,
+  Query: queryResolvers,
+  Player: playerResolvers,
 };
