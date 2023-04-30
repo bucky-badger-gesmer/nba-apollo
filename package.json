@@ -1,5 +1,5 @@
 {
-  "name": "nba-apollo",
+  "name": "sportql",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -21,15 +21,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bucky-badger-gesmer/nba-apollo.git"
+    "url": "git+https://github.com/bucky-badger-gesmer/sportql.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bucky-badger-gesmer/nba-apollo/issues"
+    "url": "https://github.com/bucky-badger-gesmer/sportql/issues"
   },
-  "homepage": "https://github.com/bucky-badger-gesmer/nba-apollo#readme",
+  "homepage": "https://github.com/bucky-badger-gesmer/sportql#readme",
   "dependencies": {
     "@apollo/datasource-rest": "^5.1.0",
     "@apollo/server": "^4.7.0",
