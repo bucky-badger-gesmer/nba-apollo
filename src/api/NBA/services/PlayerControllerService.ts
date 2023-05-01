@@ -9,6 +9,7 @@ export class PlayerControllerService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
 
     /**
+     * @returns any All NBA Players
      * @throws ApiError
      */
     public commonAllPlayers({
@@ -19,7 +20,7 @@ export class PlayerControllerService {
         leagueId: string,
         season?: string,
         isOnlyCurrentSeason?: string,
-    }): CancelablePromise<void> {
+    }): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/commonallplayers',
