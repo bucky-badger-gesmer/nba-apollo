@@ -1,22 +1,22 @@
 import type { ExpressContext } from "apollo-server-express";
-import { NbaDataSources } from "./dataSources";
+import { SportQLDataSources } from "./dataSources";
+import type { Request } from "express";
 
-export enum NbaHeaderKey {
-  accept = "*/*",
-  host = "stats.nba.com",
-  origin = "https://www.nba.com",
-  referer = "https://www.nba.com",
+export enum SportQLHeaderKey {}
+
+export type SportQLHeaders = Record<SportQLHeaderKey, string>;
+
+export interface SportQLRequest extends Request {
+  headers: SportQLHeaders;
 }
 
-export type NbaHeaders = Record<NbaHeaderKey, string>;
-
-type DataSourceKeys = keyof NbaDataSources;
+type DataSourceKeys = keyof SportQLDataSources;
 
 export type ContextDataSources = {
-  [K in DataSourceKeys]: NbaDataSources[K];
+  [K in DataSourceKeys]: SportQLDataSources[K];
 };
 
-export interface NbaContext extends ExpressContext {
+export interface SportQLContext extends ExpressContext {
   dataSources: ContextDataSources;
-  nbaHeaders: NbaHeaders;
+  sportQLHeaders: SportQLHeaders;
 }
