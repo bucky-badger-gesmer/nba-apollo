@@ -1,13 +1,13 @@
 import { DataSource, DataSourceConfig } from "apollo-datasource";
 import CircuitBreaker from "opossum";
-import { NbaContext, NbaHeaders } from "../types";
+import { SportQLContext, SportQLHeaders } from "../types";
 import { createCircuitBreaker } from "../services/opossum";
 
 const circuitBreakers = new Map<string | symbol, CircuitBreaker>();
 
-export abstract class NbaDataSource extends DataSource<NbaContext> {
-  headers: NbaHeaders;
-  context: NbaContext;
+export abstract class SportQLDataSource extends DataSource<SportQLContext> {
+  headers: SportQLHeaders;
+  context: SportQLContext;
 
   constructor() {
     super();
@@ -43,8 +43,8 @@ export abstract class NbaDataSource extends DataSource<NbaContext> {
     });
   }
 
-  initialize({ context }: DataSourceConfig<NbaContext>) {
-    this.headers = context.nbaHeaders;
+  initialize({ context }: DataSourceConfig<SportQLContext>) {
+    this.headers = context.sportQLHeaders;
     this.context = context;
   }
 }
