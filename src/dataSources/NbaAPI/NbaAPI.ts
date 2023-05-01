@@ -1,16 +1,16 @@
-import { DataSource, DataSourceConfig } from "apollo-datasource";
-import { NBAClient } from "../../api/NBA";
-import { NbaContext } from "../../types";
-import { NbaDataSource } from "../NbaDataSource";
+import { DataSourceConfig } from "apollo-datasource";
+import { NBAClient } from "../../api/nba";
+import { SportQLContext } from "../../types";
+import { SportQLDataSource } from "../SportQLDataSource";
 
-export class NbaAPI extends NbaDataSource {
+export class NbaAPI extends SportQLDataSource {
   constructor() {
     super();
   }
 
   private Nba: NBAClient;
 
-  initialize(args: DataSourceConfig<NbaContext>): void {
+  initialize(args: DataSourceConfig<SportQLContext>): void {
     super.initialize(args);
     this.Nba = new NBAClient({
       HEADERS: {
