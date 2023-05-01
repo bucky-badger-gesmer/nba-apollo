@@ -13,7 +13,6 @@ export type Scalars = {
   Float: number;
 };
 
-/** Available fields returned per player when commonAllPlayers is called */
 export type CommonPlayer = {
   __typename?: 'CommonPlayer';
   displayFirstLast?: Maybe<Scalars['String']>;
@@ -34,30 +33,15 @@ export type CommonPlayer = {
   toYear?: Maybe<Scalars['String']>;
 };
 
-export type CommonTeam = {
-  __typename?: 'CommonTeam';
-  abbreviation?: Maybe<Scalars['String']>;
-  location?: Maybe<Scalars['String']>;
-  simpleName?: Maybe<Scalars['String']>;
-  teamId?: Maybe<Scalars['String']>;
-  teamName?: Maybe<Scalars['String']>;
-};
-
-export type Player = {
-  __typename?: 'Player';
+export type Nba = {
+  __typename?: 'Nba';
   commonAllPlayers?: Maybe<Array<Maybe<CommonPlayer>>>;
 };
 
 export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['String']>;
-  player?: Maybe<Player>;
-  team?: Maybe<Team>;
-};
-
-export type Team = {
-  __typename?: 'Team';
-  commonAllTeams?: Maybe<Array<Maybe<CommonTeam>>>;
+  nba?: Maybe<Nba>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -128,22 +112,18 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CommonPlayer: ResolverTypeWrapper<CommonPlayer>;
-  CommonTeam: ResolverTypeWrapper<CommonTeam>;
-  Player: ResolverTypeWrapper<Player>;
+  Nba: ResolverTypeWrapper<Nba>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Team: ResolverTypeWrapper<Team>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
   CommonPlayer: CommonPlayer;
-  CommonTeam: CommonTeam;
-  Player: Player;
+  Nba: Nba;
   Query: {};
   String: Scalars['String'];
-  Team: Team;
 }>;
 
 export type CommonPlayerResolvers<ContextType = any, ParentType extends ResolversParentTypes['CommonPlayer'] = ResolversParentTypes['CommonPlayer']> = ResolversObject<{
@@ -166,36 +146,19 @@ export type CommonPlayerResolvers<ContextType = any, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type CommonTeamResolvers<ContextType = any, ParentType extends ResolversParentTypes['CommonTeam'] = ResolversParentTypes['CommonTeam']> = ResolversObject<{
-  abbreviation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  simpleName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  teamId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  teamName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type PlayerResolvers<ContextType = any, ParentType extends ResolversParentTypes['Player'] = ResolversParentTypes['Player']> = ResolversObject<{
+export type NbaResolvers<ContextType = any, ParentType extends ResolversParentTypes['Nba'] = ResolversParentTypes['Nba']> = ResolversObject<{
   commonAllPlayers?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommonPlayer']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  player?: Resolver<Maybe<ResolversTypes['Player']>, ParentType, ContextType>;
-  team?: Resolver<Maybe<ResolversTypes['Team']>, ParentType, ContextType>;
-}>;
-
-export type TeamResolvers<ContextType = any, ParentType extends ResolversParentTypes['Team'] = ResolversParentTypes['Team']> = ResolversObject<{
-  commonAllTeams?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommonTeam']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+  nba?: Resolver<Maybe<ResolversTypes['Nba']>, ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
   CommonPlayer?: CommonPlayerResolvers<ContextType>;
-  CommonTeam?: CommonTeamResolvers<ContextType>;
-  Player?: PlayerResolvers<ContextType>;
+  Nba?: NbaResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  Team?: TeamResolvers<ContextType>;
 }>;
 
