@@ -1,8 +1,7 @@
 import { gql } from "apollo-server";
 import merge from "lodash.merge";
 
-import * as Player from "./player/player";
-import * as Team from "./team/team";
+import * as NBA from "./nba/nba";
 
 const Query = gql`
   type Query {
@@ -10,6 +9,6 @@ const Query = gql`
   }
 `;
 
-export const typeDefs = [Query, Player.typeDefs, Team.typeDefs];
+export const typeDefs = [Query, NBA.typeDefs];
 
-export const resolvers = merge({}, Player.resolvers, Team.resolvers);
+export const resolvers = merge({}, NBA.resolvers);
