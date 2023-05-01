@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Request } from "express";
 import CircuitBreaker from "opossum";
-import { NbaHeaders } from "../types";
-
 export class CircuitBreakerError extends Error {
   metadata: CircuitBreaker;
 
