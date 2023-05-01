@@ -6,6 +6,6 @@ const dataSources = () => {
   };
 };
 
-export type NbaDataSources = ReturnType<typeof dataSources>;
+export type SportQLDataSources = ReturnType<typeof dataSources>;
 
 export default dataSources;
