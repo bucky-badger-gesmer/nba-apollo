@@ -12,6 +12,7 @@
     "dev": "tsc-watch --onSuccess \"npm run watch\"",
     "go": "npm i && npm run generate:api && npm run generate:schema && npm run generate:gql && npm run start",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "rover:check": "rover graph check SportQL@current --schema ./schema.graphql",
     "generate:gql": "graphql-codegen --config codegen.yml",
     "generate:api": "node ./open-api/generate.cjs",
     "generate:schema": "ts-node ./scripts/generateSchema.ts"
@@ -45,6 +46,7 @@
     "opossum-prometheus": "^0.3.0"
   },
   "devDependencies": {
+    "@apollo/rover": "^0.11.0",
     "@babel/preset-typescript": "^7.16.7",
     "@graphql-codegen/cli": "2.16.5",
     "@graphql-codegen/introspection": "2.2.3",
