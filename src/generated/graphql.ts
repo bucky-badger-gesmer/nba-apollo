@@ -13,8 +13,34 @@ export type Scalars = {
   Float: number;
 };
 
+export type Franchise = {
+  __typename?: 'Franchise';
+  conferenceTitles?: Maybe<Scalars['Int']>;
+  divisionTitles?: Maybe<Scalars['Int']>;
+  endYear?: Maybe<Scalars['String']>;
+  games?: Maybe<Scalars['Int']>;
+  leagueId?: Maybe<Scalars['String']>;
+  leagueTitles?: Maybe<Scalars['Int']>;
+  losses?: Maybe<Scalars['Int']>;
+  playoffAppearances?: Maybe<Scalars['Int']>;
+  startYear?: Maybe<Scalars['String']>;
+  teamCity?: Maybe<Scalars['String']>;
+  teamId?: Maybe<Scalars['ID']>;
+  teamName?: Maybe<Scalars['String']>;
+  winPct?: Maybe<Scalars['Float']>;
+  wins?: Maybe<Scalars['Int']>;
+  years?: Maybe<Scalars['Int']>;
+};
+
+export type FranchiseHistory = {
+  __typename?: 'FranchiseHistory';
+  defunctFranchises?: Maybe<Array<Maybe<Franchise>>>;
+  franchises?: Maybe<Array<Maybe<Franchise>>>;
+};
+
 export type Nba = {
-  __typename?: 'Nba';
+  __typename?: 'NBA';
+  franchiseHistory?: Maybe<FranchiseHistory>;
   players?: Maybe<Array<Maybe<Player>>>;
 };
 
@@ -23,7 +49,7 @@ export type Player = {
   displayFirstLast?: Maybe<Scalars['String']>;
   displayLastCommaFirst?: Maybe<Scalars['String']>;
   fromYear?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['ID']>;
   playerCode?: Maybe<Scalars['String']>;
   playerSlug?: Maybe<Scalars['String']>;
   toYear?: Maybe<Scalars['String']>;
@@ -102,7 +128,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Nba: ResolverTypeWrapper<Nba>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
+  Franchise: ResolverTypeWrapper<Franchise>;
+  FranchiseHistory: ResolverTypeWrapper<FranchiseHistory>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  NBA: ResolverTypeWrapper<Nba>;
   Player: ResolverTypeWrapper<Player>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -111,13 +142,44 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
-  Nba: Nba;
+  Float: Scalars['Float'];
+  Franchise: Franchise;
+  FranchiseHistory: FranchiseHistory;
+  ID: Scalars['ID'];
+  Int: Scalars['Int'];
+  NBA: Nba;
   Player: Player;
   Query: {};
   String: Scalars['String'];
 }>;
 
-export type NbaResolvers<ContextType = any, ParentType extends ResolversParentTypes['Nba'] = ResolversParentTypes['Nba']> = ResolversObject<{
+export type FranchiseResolvers<ContextType = any, ParentType extends ResolversParentTypes['Franchise'] = ResolversParentTypes['Franchise']> = ResolversObject<{
+  conferenceTitles?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  divisionTitles?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  endYear?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  games?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  leagueId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  leagueTitles?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  losses?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  playoffAppearances?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  startYear?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  teamCity?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  teamId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  teamName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  winPct?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  wins?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  years?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type FranchiseHistoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['FranchiseHistory'] = ResolversParentTypes['FranchiseHistory']> = ResolversObject<{
+  defunctFranchises?: Resolver<Maybe<Array<Maybe<ResolversTypes['Franchise']>>>, ParentType, ContextType>;
+  franchises?: Resolver<Maybe<Array<Maybe<ResolversTypes['Franchise']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type NbaResolvers<ContextType = any, ParentType extends ResolversParentTypes['NBA'] = ResolversParentTypes['NBA']> = ResolversObject<{
+  franchiseHistory?: Resolver<Maybe<ResolversTypes['FranchiseHistory']>, ParentType, ContextType>;
   players?: Resolver<Maybe<Array<Maybe<ResolversTypes['Player']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -126,7 +188,7 @@ export type PlayerResolvers<ContextType = any, ParentType extends ResolversParen
   displayFirstLast?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   displayLastCommaFirst?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   fromYear?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   playerCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   playerSlug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   toYear?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -135,11 +197,13 @@ export type PlayerResolvers<ContextType = any, ParentType extends ResolversParen
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  nba?: Resolver<Maybe<ResolversTypes['Nba']>, ParentType, ContextType>;
+  nba?: Resolver<Maybe<ResolversTypes['NBA']>, ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
-  Nba?: NbaResolvers<ContextType>;
+  Franchise?: FranchiseResolvers<ContextType>;
+  FranchiseHistory?: FranchiseHistoryResolvers<ContextType>;
+  NBA?: NbaResolvers<ContextType>;
   Player?: PlayerResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 }>;
