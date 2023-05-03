@@ -1,18 +1,20 @@
-import { players } from "./fieldResolvers";
-import { Nba, QueryResolvers } from "../../generated/graphql";
+import { franchiseHistory, players } from "./fieldResolvers";
+import { QueryResolvers } from "../../generated/graphql";
 import { SportQLContext } from "../../types";
+import { Nba } from "../../generated/graphql";
 
 const queryResolvers: QueryResolvers<SportQLContext> = {
-  nba: async (_parent, args, context, _info) => {
+  nba: async () => {
     return {} as Nba;
   },
 };
 
 const nbaResolvers = {
+  franchiseHistory,
   players,
 };
 
 export const resolvers = {
   Query: queryResolvers,
-  Nba: nbaResolvers,
+  NBA: nbaResolvers,
 };
