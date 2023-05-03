@@ -18,24 +18,7 @@ export abstract class SportQLDataSource extends DataSource<SportQLContext> {
         //@ts-ignore-error
         if (typeof target[prop] === "function" && prop !== "initialize") {
           //@ts-ignore-error
-          return new Proxy(target[prop], {
-            apply: async (target, thisArg, argumentsList) => {
-              //@ts-ignore-error
-              if (await bypassBreakerCheck({ headers: thisArg.headers })) {
-                return Reflect.apply(target, thisArg, argumentsList);
-              }
-              let protectedMethod = circuitBreakers.get(prop);
-              if (!protectedMethod) {
-                protectedMethod = createCircuitBreaker(target, {
-                  group: APIName,
-                  name: functionName,
-                });
-
-                circuitBreakers.set(prop, protectedMethod);
-              }
-              return protectedMethod.fire(...argumentsList);
-            },
-          });
+          return new Proxy(target[prop], {});
         } else {
           return Reflect.get(target, prop);
         }
