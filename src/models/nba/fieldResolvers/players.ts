@@ -8,10 +8,9 @@ export const players: NbaResolvers<SportQLContext>["players"] = async (
 ) => {
   const getPlayersResult = await dataSources.nbaAPI.getPlayers();
 
-  const resultSets = getPlayersResult.resultSets;
+  const { resultSets } = getPlayersResult;
   const commonAllPlayers = resultSets[0];
-  const headers = commonAllPlayers.headers;
-  const rowSet = commonAllPlayers.rowSet;
+  const { headers, rowSet } = commonAllPlayers;
 
   const players: Player[] = [];
   rowSet.forEach((row) => {
