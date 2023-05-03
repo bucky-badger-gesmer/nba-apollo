@@ -4,26 +4,17 @@ type Query {
 }
 
 type Nba {
-  commonAllPlayers: [CommonPlayer]
+  players: [Player]
 }
 
-type CommonPlayer {
-  playerId: String
+type Player {
+  id: String
   displayLastCommaFirst: String
   displayFirstLast: String
-  rosterStatus: String
   fromYear: String
   toYear: String
   playerCode: String
   playerSlug: String
-  teamId: String
-  teamCity: String
-  teamName: String
-  teamAbbreviation: String
-  teamCode: String
-  teamSlug: String
-  gamesPlayedFlag: String
-  otherLeagueExperienceCh: String
 }
 
 schema {
