@@ -1,4 +1,4 @@
-import { commonAllPlayers } from "./fieldResolvers";
+import { players } from "./fieldResolvers";
 import { Nba, QueryResolvers } from "../../generated/graphql";
 import { SportQLContext } from "../../types";
 
@@ -9,7 +9,7 @@ const queryResolvers: QueryResolvers<SportQLContext> = {
 };
 
 const nbaResolvers = {
-  commonAllPlayers,
+  players,
 };
 
 export const resolvers = {

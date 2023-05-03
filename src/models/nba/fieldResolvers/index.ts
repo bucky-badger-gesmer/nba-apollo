@@ -1,1 +1,1 @@
-export { commonAllPlayers } from "./commonAllPlayers";
+export { players } from "./players";
