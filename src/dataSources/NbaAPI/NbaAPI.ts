@@ -14,4 +14,17 @@ export class NbaAPI extends RESTDataSource {
       console.log("error", error);
     }
   }
+
+  async getFranchiseHistory() {
+    try {
+      const data = (await apiCall("franchisehistory")).data;
+      return {
+        resource: data.resource,
+        parameters: data.parameters,
+        resultSets: data.resultSets,
+      };
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
 }
