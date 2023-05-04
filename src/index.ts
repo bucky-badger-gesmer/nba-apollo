@@ -13,7 +13,6 @@ const startApolloServer = async () => {
   const server = new ApolloServer<ContextValue>({
     typeDefs,
     resolvers,
-    introspection: true,
   });
 
   const { url } = await startStandaloneServer(server, {
