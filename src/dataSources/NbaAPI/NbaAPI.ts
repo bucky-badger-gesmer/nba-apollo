@@ -1,10 +1,10 @@
 import { RESTDataSource } from "@apollo/datasource-rest";
-import { apiCall } from "../../models/helpers";
+import { nbaStatsApi } from "../../models/helpers";
 
 export class NbaAPI extends RESTDataSource {
   async getPlayers() {
     try {
-      const data = (await apiCall("commonAllPlayers")).data;
+      const data = (await nbaStatsApi("commonAllPlayers")).data;
       return {
         resource: data.resource,
         parameters: data.parameters,
@@ -17,7 +17,7 @@ export class NbaAPI extends RESTDataSource {
 
   async getFranchiseHistory() {
     try {
-      const data = (await apiCall("franchisehistory")).data;
+      const data = (await nbaStatsApi("franchisehistory")).data;
       return {
         resource: data.resource,
         parameters: data.parameters,

@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const apiCall = async (endpoint: string, params?: string) => {
+export const nbaStatsApi = async (endpoint: string, queryParams?: string) => {
   return axios.get(
-    `https://stats.nba.com/stats/${endpoint}?LeagueID=00&${params}`,
+    `https://stats.nba.com/stats/${endpoint}?LeagueID=00&${queryParams}`,
     {
       headers: {
         accept: "*/*",
