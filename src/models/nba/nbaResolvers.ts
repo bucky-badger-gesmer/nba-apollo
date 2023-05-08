@@ -1,4 +1,4 @@
-import { franchiseHistory, players } from "./fieldResolvers";
+import { franchiseHistory, playerIndex, players } from "./fieldResolvers";
 import { QueryResolvers } from "../../generated/graphql";
 import { SportQLContext } from "../../types";
 import { Nba } from "../../generated/graphql";
@@ -11,6 +11,7 @@ const queryResolvers: QueryResolvers<SportQLContext> = {
 
 const nbaResolvers = {
   franchiseHistory,
+  playerIndex,
   players,
 };
 

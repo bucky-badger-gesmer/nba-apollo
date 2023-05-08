@@ -1,6 +1,6 @@
 import {
-  Franchise,
-  FranchiseHistory,
+  NbaFranchise,
+  NbaFranchiseHistory,
   NbaResolvers,
 } from "../../../generated/graphql";
 import { SportQLContext } from "../../../types";
@@ -17,7 +17,7 @@ export const franchiseHistory: NbaResolvers<SportQLContext>["franchiseHistory"] 
     const { headers: defunctTeamsHeaders, rowSet: defunctTeamsRowSet } =
       defunctTeams;
 
-    const franchises: Franchise[] = [];
+    const franchises: NbaFranchise[] = [];
     franchiseHistoryRowSet.forEach((row) => {
       franchises.push({
         leagueId: row[franchiseHistoryHeaders.indexOf("LEAGUE_ID")],
@@ -39,7 +39,16 @@ export const franchiseHistory: NbaResolvers<SportQLContext>["franchiseHistory"] 
       });
     });
 
-    const defunctFranchises: Franchise[] = [];
+    const franchiseTeamIds = franchises
+      .reverse()
+      .map((franchise) => franchise.teamId);
+    const filteredFranchises = franchises
+      .filter(
+        ({ teamId }, index) => !franchiseTeamIds.includes(teamId, index + 1)
+      )
+      .reverse();
+
+    const defunctFranchises: NbaFranchise[] = [];
     defunctTeamsRowSet.forEach((row) => {
       defunctFranchises.push({
         leagueId: row[defunctTeamsHeaders.indexOf("LEAGUE_ID")],
@@ -61,7 +70,7 @@ export const franchiseHistory: NbaResolvers<SportQLContext>["franchiseHistory"] 
     });
 
     return {
-      franchises,
+      franchises: filteredFranchises,
       defunctFranchises,
-    } as FranchiseHistory;
+    } as NbaFranchiseHistory;
   };

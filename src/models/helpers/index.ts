@@ -1,15 +1,12 @@
 import axios from "axios";
 
-export const apiCall = async (endpoint: string, params?: string) => {
-  return axios.get(
-    `https://stats.nba.com/stats/${endpoint}?LeagueID=00&${params}`,
-    {
-      headers: {
-        accept: "*/*",
-        host: "stats.nba.com",
-        origin: "https://www.nba.com",
-        referer: "https://www.nba.com",
-      },
-    }
-  );
+export const nbaStatsApi = async (endpoint: string, queryParams?: string) => {
+  return axios.get(`https://stats.nba.com/stats/${endpoint}?${queryParams}`, {
+    headers: {
+      accept: "*/*",
+      host: "stats.nba.com",
+      origin: "https://www.nba.com",
+      referer: "https://www.nba.com",
+    },
+  });
 };

@@ -1,4 +1,4 @@
-import { NbaResolvers, Player } from "../../../generated/graphql";
+import { NbaResolvers, NbaPlayer } from "../../../generated/graphql";
 import { SportQLContext } from "../../../types";
 
 export const players: NbaResolvers<SportQLContext>["players"] = async (
@@ -12,7 +12,7 @@ export const players: NbaResolvers<SportQLContext>["players"] = async (
   const commonAllPlayers = resultSets[0];
   const { headers, rowSet } = commonAllPlayers;
 
-  const players: Player[] = [];
+  const players: NbaPlayer[] = [];
   rowSet.forEach((row) => {
     players.push({
       id: row[headers.indexOf("PERSON_ID")],
