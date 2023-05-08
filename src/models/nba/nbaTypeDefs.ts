@@ -7,7 +7,7 @@ export const typeDefs = gql`
 
   type NBA {
     franchiseHistory: NbaFranchiseHistory
-    players: [NbaPlayer] @deprecated(reason: "use NbaPlayerIndex")
+    players: [NbaPlayer] @deprecated(reason: "use playerIndex")
     playerIndex: [NbaPlayerIndex]
   }
 
