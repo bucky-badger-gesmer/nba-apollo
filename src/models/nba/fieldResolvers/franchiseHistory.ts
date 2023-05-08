@@ -39,6 +39,15 @@ export const franchiseHistory: NbaResolvers<SportQLContext>["franchiseHistory"] 
       });
     });
 
+    const franchiseTeamIds = franchises
+      .reverse()
+      .map((franchise) => franchise.teamId);
+    const filteredFranchises = franchises
+      .filter(
+        ({ teamId }, index) => !franchiseTeamIds.includes(teamId, index + 1)
+      )
+      .reverse();
+
     const defunctFranchises: Franchise[] = [];
     defunctTeamsRowSet.forEach((row) => {
       defunctFranchises.push({
@@ -61,7 +70,7 @@ export const franchiseHistory: NbaResolvers<SportQLContext>["franchiseHistory"] 
     });
 
     return {
-      franchises,
+      franchises: filteredFranchises,
       defunctFranchises,
     } as FranchiseHistory;
   };
