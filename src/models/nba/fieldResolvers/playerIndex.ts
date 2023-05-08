@@ -37,15 +37,17 @@ export const playerIndex: NbaResolvers<SportQLContext>["playerIndex"] = async (
         round: row[headers.indexOf("DRAFT_ROUND")],
         pick: row[headers.indexOf("DRAFT_NUMBER")],
       },
-      rosterStatus: row[headers.indexOf("ROSTER_STATUS")],
+      active: row[headers.indexOf("ROSTER_STATUS")] === null ? false : true,
       headlineStats: {
         points: row[headers.indexOf("PTS")],
         rebounds: row[headers.indexOf("REB")],
         assists: row[headers.indexOf("AST")],
         timeFrame: row[headers.indexOf("STATS_TIMEFRAME")],
       },
-      fromYear: row[headers.indexOf("FROM_YEAR")],
-      toYear: row[headers.indexOf("TO_YEAR")],
+      career: {
+        fromYear: row[headers.indexOf("FROM_YEAR")],
+        toYear: row[headers.indexOf("TO_YEAR")],
+      },
     });
   });
 
