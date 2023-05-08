@@ -1,4 +1,4 @@
-import { Franchise, NbaResolvers } from "../../../generated/graphql";
+import { NbaFranchise, NbaResolvers } from "../../../generated/graphql";
 import { SportQLContext } from "../../../types";
 
 export const franchises: NbaResolvers<SportQLContext>["franchises"] = async (
@@ -15,7 +15,7 @@ export const franchises: NbaResolvers<SportQLContext>["franchises"] = async (
   const franchiseHistoryRowSet = franchiseHistory.rowSet;
   const defunctTeamsRowSet = defunctTeams.rowSet;
 
-  const franchises: Franchise[] = [];
+  const franchises: NbaFranchise[] = [];
   franchiseHistoryRowSet.forEach((row) => {
     franchises.push({
       leagueId: row[franchiseHistoryHeaders.indexOf("LEAGUE_ID")],
@@ -37,7 +37,7 @@ export const franchises: NbaResolvers<SportQLContext>["franchises"] = async (
     });
   });
 
-  const defunctFranchises: Franchise[] = [];
+  const defunctFranchises: NbaFranchise[] = [];
   defunctTeamsRowSet.forEach((row) => {
     defunctFranchises.push({
       leagueId: row[defunctTeamsHeaders.indexOf("LEAGUE_ID")],

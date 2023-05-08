@@ -6,16 +6,17 @@ export const typeDefs = gql`
   }
 
   type NBA {
-    franchiseHistory: FranchiseHistory
-    players: [Player]
+    franchiseHistory: NbaFranchiseHistory
+    players: [NbaPlayer] @deprecated(reason: "use NbaPlayerIndex")
+    playerIndex: [NbaPlayerIndex]
   }
 
-  type FranchiseHistory {
-    franchises: [Franchise]
-    defunctFranchises: [Franchise]
+  type NbaFranchiseHistory {
+    franchises: [NbaFranchise]
+    defunctFranchises: [NbaFranchise]
   }
 
-  type Franchise {
+  type NbaFranchise {
     leagueId: String
     teamId: ID
     teamCity: String
@@ -33,7 +34,7 @@ export const typeDefs = gql`
     leagueTitles: Int
   }
 
-  type Player {
+  type NbaPlayer {
     id: ID
     displayLastCommaFirst: String
     displayFirstLast: String
@@ -41,5 +42,45 @@ export const typeDefs = gql`
     toYear: String
     playerCode: String
     playerSlug: String
+  }
+
+  type NbaPlayerIndex {
+    id: ID
+    lastName: String
+    firstName: String
+    playerSlug: String
+    team: NbaPlayerIndexTeamInfo
+    jerseyNumber: String
+    position: String
+    height: String
+    weight: String
+    college: String
+    country: String
+    draft: NbaDraft
+    rosterStatus: Float
+    headlineStats: NbaPlayerHeadlineStats
+    fromYear: String
+    toYear: String
+  }
+
+  type NbaPlayerIndexTeamInfo {
+    id: ID
+    slug: String
+    city: String
+    name: String
+    abbreviation: String
+  }
+
+  type NbaDraft {
+    year: Int
+    round: Int
+    pick: Int
+  }
+
+  type NbaPlayerHeadlineStats {
+    points: Float
+    rebounds: Float
+    assists: Float
+    timeFrame: String
   }
 `;
