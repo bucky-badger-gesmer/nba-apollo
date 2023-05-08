@@ -56,11 +56,10 @@ export const typeDefs = gql`
     weight: String
     college: String
     country: String
-    draft: NbaDraft
-    rosterStatus: Float
-    headlineStats: NbaPlayerHeadlineStats
-    fromYear: String
-    toYear: String
+    draft: NbaPlayerIndexDraft
+    active: Boolean
+    headlineStats: NbaPlayerIndexHeadlineStats
+    career: NbaPlayerIndexCareer
   }
 
   type NbaPlayerIndexTeamInfo {
@@ -71,16 +70,21 @@ export const typeDefs = gql`
     abbreviation: String
   }
 
-  type NbaDraft {
+  type NbaPlayerIndexDraft {
     year: Int
     round: Int
     pick: Int
   }
 
-  type NbaPlayerHeadlineStats {
+  type NbaPlayerIndexHeadlineStats {
     points: Float
     rebounds: Float
     assists: Float
     timeFrame: String
+  }
+
+  type NbaPlayerIndexCareer {
+    fromYear: String
+    toYear: String
   }
 `;
