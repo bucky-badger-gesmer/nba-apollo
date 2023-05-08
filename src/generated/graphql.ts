@@ -21,13 +21,6 @@ export type Nba = {
   players?: Maybe<Array<Maybe<NbaPlayer>>>;
 };
 
-export type NbaDraft = {
-  __typename?: 'NbaDraft';
-  pick?: Maybe<Scalars['Int']>;
-  round?: Maybe<Scalars['Int']>;
-  year?: Maybe<Scalars['Int']>;
-};
-
 export type NbaFranchise = {
   __typename?: 'NbaFranchise';
   conferenceTitles?: Maybe<Scalars['Int']>;
@@ -64,32 +57,44 @@ export type NbaPlayer = {
   toYear?: Maybe<Scalars['String']>;
 };
 
-export type NbaPlayerHeadlineStats = {
-  __typename?: 'NbaPlayerHeadlineStats';
-  assists?: Maybe<Scalars['Float']>;
-  points?: Maybe<Scalars['Float']>;
-  rebounds?: Maybe<Scalars['Float']>;
-  timeFrame?: Maybe<Scalars['String']>;
-};
-
 export type NbaPlayerIndex = {
   __typename?: 'NbaPlayerIndex';
+  active?: Maybe<Scalars['Boolean']>;
+  career?: Maybe<NbaPlayerIndexCareer>;
   college?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
-  draft?: Maybe<NbaDraft>;
+  draft?: Maybe<NbaPlayerIndexDraft>;
   firstName?: Maybe<Scalars['String']>;
-  fromYear?: Maybe<Scalars['String']>;
-  headlineStats?: Maybe<NbaPlayerHeadlineStats>;
+  headlineStats?: Maybe<NbaPlayerIndexHeadlineStats>;
   height?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
   jerseyNumber?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   playerSlug?: Maybe<Scalars['String']>;
   position?: Maybe<Scalars['String']>;
-  rosterStatus?: Maybe<Scalars['Float']>;
   team?: Maybe<NbaPlayerIndexTeamInfo>;
-  toYear?: Maybe<Scalars['String']>;
   weight?: Maybe<Scalars['String']>;
+};
+
+export type NbaPlayerIndexCareer = {
+  __typename?: 'NbaPlayerIndexCareer';
+  fromYear?: Maybe<Scalars['String']>;
+  toYear?: Maybe<Scalars['String']>;
+};
+
+export type NbaPlayerIndexDraft = {
+  __typename?: 'NbaPlayerIndexDraft';
+  pick?: Maybe<Scalars['Int']>;
+  round?: Maybe<Scalars['Int']>;
+  year?: Maybe<Scalars['Int']>;
+};
+
+export type NbaPlayerIndexHeadlineStats = {
+  __typename?: 'NbaPlayerIndexHeadlineStats';
+  assists?: Maybe<Scalars['Float']>;
+  points?: Maybe<Scalars['Float']>;
+  rebounds?: Maybe<Scalars['Float']>;
+  timeFrame?: Maybe<Scalars['String']>;
 };
 
 export type NbaPlayerIndexTeamInfo = {
@@ -178,12 +183,13 @@ export type ResolversTypes = ResolversObject<{
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   NBA: ResolverTypeWrapper<Nba>;
-  NbaDraft: ResolverTypeWrapper<NbaDraft>;
   NbaFranchise: ResolverTypeWrapper<NbaFranchise>;
   NbaFranchiseHistory: ResolverTypeWrapper<NbaFranchiseHistory>;
   NbaPlayer: ResolverTypeWrapper<NbaPlayer>;
-  NbaPlayerHeadlineStats: ResolverTypeWrapper<NbaPlayerHeadlineStats>;
   NbaPlayerIndex: ResolverTypeWrapper<NbaPlayerIndex>;
+  NbaPlayerIndexCareer: ResolverTypeWrapper<NbaPlayerIndexCareer>;
+  NbaPlayerIndexDraft: ResolverTypeWrapper<NbaPlayerIndexDraft>;
+  NbaPlayerIndexHeadlineStats: ResolverTypeWrapper<NbaPlayerIndexHeadlineStats>;
   NbaPlayerIndexTeamInfo: ResolverTypeWrapper<NbaPlayerIndexTeamInfo>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -196,12 +202,13 @@ export type ResolversParentTypes = ResolversObject<{
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   NBA: Nba;
-  NbaDraft: NbaDraft;
   NbaFranchise: NbaFranchise;
   NbaFranchiseHistory: NbaFranchiseHistory;
   NbaPlayer: NbaPlayer;
-  NbaPlayerHeadlineStats: NbaPlayerHeadlineStats;
   NbaPlayerIndex: NbaPlayerIndex;
+  NbaPlayerIndexCareer: NbaPlayerIndexCareer;
+  NbaPlayerIndexDraft: NbaPlayerIndexDraft;
+  NbaPlayerIndexHeadlineStats: NbaPlayerIndexHeadlineStats;
   NbaPlayerIndexTeamInfo: NbaPlayerIndexTeamInfo;
   Query: {};
   String: Scalars['String'];
@@ -211,13 +218,6 @@ export type NbaResolvers<ContextType = any, ParentType extends ResolversParentTy
   franchiseHistory?: Resolver<Maybe<ResolversTypes['NbaFranchiseHistory']>, ParentType, ContextType>;
   playerIndex?: Resolver<Maybe<Array<Maybe<ResolversTypes['NbaPlayerIndex']>>>, ParentType, ContextType>;
   players?: Resolver<Maybe<Array<Maybe<ResolversTypes['NbaPlayer']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type NbaDraftResolvers<ContextType = any, ParentType extends ResolversParentTypes['NbaDraft'] = ResolversParentTypes['NbaDraft']> = ResolversObject<{
-  pick?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  round?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  year?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -257,31 +257,43 @@ export type NbaPlayerResolvers<ContextType = any, ParentType extends ResolversPa
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type NbaPlayerHeadlineStatsResolvers<ContextType = any, ParentType extends ResolversParentTypes['NbaPlayerHeadlineStats'] = ResolversParentTypes['NbaPlayerHeadlineStats']> = ResolversObject<{
-  assists?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  points?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  rebounds?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  timeFrame?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
 export type NbaPlayerIndexResolvers<ContextType = any, ParentType extends ResolversParentTypes['NbaPlayerIndex'] = ResolversParentTypes['NbaPlayerIndex']> = ResolversObject<{
+  active?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  career?: Resolver<Maybe<ResolversTypes['NbaPlayerIndexCareer']>, ParentType, ContextType>;
   college?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  draft?: Resolver<Maybe<ResolversTypes['NbaDraft']>, ParentType, ContextType>;
+  draft?: Resolver<Maybe<ResolversTypes['NbaPlayerIndexDraft']>, ParentType, ContextType>;
   firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  fromYear?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  headlineStats?: Resolver<Maybe<ResolversTypes['NbaPlayerHeadlineStats']>, ParentType, ContextType>;
+  headlineStats?: Resolver<Maybe<ResolversTypes['NbaPlayerIndexHeadlineStats']>, ParentType, ContextType>;
   height?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   jerseyNumber?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   playerSlug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   position?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  rosterStatus?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   team?: Resolver<Maybe<ResolversTypes['NbaPlayerIndexTeamInfo']>, ParentType, ContextType>;
-  toYear?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   weight?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type NbaPlayerIndexCareerResolvers<ContextType = any, ParentType extends ResolversParentTypes['NbaPlayerIndexCareer'] = ResolversParentTypes['NbaPlayerIndexCareer']> = ResolversObject<{
+  fromYear?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  toYear?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type NbaPlayerIndexDraftResolvers<ContextType = any, ParentType extends ResolversParentTypes['NbaPlayerIndexDraft'] = ResolversParentTypes['NbaPlayerIndexDraft']> = ResolversObject<{
+  pick?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  round?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  year?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type NbaPlayerIndexHeadlineStatsResolvers<ContextType = any, ParentType extends ResolversParentTypes['NbaPlayerIndexHeadlineStats'] = ResolversParentTypes['NbaPlayerIndexHeadlineStats']> = ResolversObject<{
+  assists?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  points?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  rebounds?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  timeFrame?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -301,12 +313,13 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type Resolvers<ContextType = any> = ResolversObject<{
   NBA?: NbaResolvers<ContextType>;
-  NbaDraft?: NbaDraftResolvers<ContextType>;
   NbaFranchise?: NbaFranchiseResolvers<ContextType>;
   NbaFranchiseHistory?: NbaFranchiseHistoryResolvers<ContextType>;
   NbaPlayer?: NbaPlayerResolvers<ContextType>;
-  NbaPlayerHeadlineStats?: NbaPlayerHeadlineStatsResolvers<ContextType>;
   NbaPlayerIndex?: NbaPlayerIndexResolvers<ContextType>;
+  NbaPlayerIndexCareer?: NbaPlayerIndexCareerResolvers<ContextType>;
+  NbaPlayerIndexDraft?: NbaPlayerIndexDraftResolvers<ContextType>;
+  NbaPlayerIndexHeadlineStats?: NbaPlayerIndexHeadlineStatsResolvers<ContextType>;
   NbaPlayerIndexTeamInfo?: NbaPlayerIndexTeamInfoResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 }>;
