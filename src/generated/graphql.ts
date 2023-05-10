@@ -19,6 +19,7 @@ export type Nba = {
   playerIndex?: Maybe<Array<Maybe<NbaPlayerIndex>>>;
   /** @deprecated use playerIndex */
   players?: Maybe<Array<Maybe<NbaPlayer>>>;
+  randomIndex?: Maybe<Scalars['Int']>;
 };
 
 export type NbaFranchise = {
@@ -218,6 +219,7 @@ export type NbaResolvers<ContextType = any, ParentType extends ResolversParentTy
   franchiseHistory?: Resolver<Maybe<ResolversTypes['NbaFranchiseHistory']>, ParentType, ContextType>;
   playerIndex?: Resolver<Maybe<Array<Maybe<ResolversTypes['NbaPlayerIndex']>>>, ParentType, ContextType>;
   players?: Resolver<Maybe<Array<Maybe<ResolversTypes['NbaPlayer']>>>, ParentType, ContextType>;
+  randomIndex?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
