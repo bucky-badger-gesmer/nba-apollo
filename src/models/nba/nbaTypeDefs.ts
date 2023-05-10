@@ -9,6 +9,7 @@ export const typeDefs = gql`
     franchiseHistory: NbaFranchiseHistory
     players: [NbaPlayer] @deprecated(reason: "use playerIndex")
     playerIndex: [NbaPlayerIndex]
+    randomIndex: Int
   }
 
   type NbaFranchiseHistory {
