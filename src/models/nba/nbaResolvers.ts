@@ -1,4 +1,9 @@
-import { franchiseHistory, playerIndex, players } from "./fieldResolvers";
+import {
+  franchiseHistory,
+  playerIndex,
+  players,
+  randomIndex,
+} from "./fieldResolvers";
 import { QueryResolvers } from "../../generated/graphql";
 import { SportQLContext } from "../../types";
 import { Nba } from "../../generated/graphql";
@@ -13,6 +18,7 @@ const nbaResolvers = {
   franchiseHistory,
   playerIndex,
   players,
+  randomIndex,
 };
 
 export const resolvers = {
